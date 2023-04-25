@@ -3,20 +3,37 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { UserSchema, User } from 'src/dto/user.schema';
-
+import { UserSchema, User } from 'src/user/user.schema';
+import { SignupDto } from 'src/dto/signup.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @InjectModel('User') private readonly userModel: Model<User>,
-  ) {}
+  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
+  
+  async signup(signupDto: SignupDto): Promise<any> {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      gender,
+      dateOfBirth,
+      country,
+      state,
+      city,
+    } = signupDto;
 
-  async signup(userData: Partial<User>): Promise<any> {
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const createdUser = new this.userModel({
-      ...userData,
+      firstName,
+      lastName,
+      email,
       password: hashedPassword,
+      gender,
+      dateOfBirth: new Date(dateOfBirth),
+      country,
+      state,
+      city,
     });
     const savedUser = await createdUser.save();
 
@@ -37,7 +54,10 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log('user:', user);
+    console.log('password:', user.password.toString());
+
+    const isPasswordValid = await bcrypt.compare(password, user.password.toString());
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }

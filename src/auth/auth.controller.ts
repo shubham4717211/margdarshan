@@ -1,34 +1,19 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { SignupDto } from 'src/dto/signup.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  async signup(
-    @Body('firstName') firstName: string,
-    @Body('lastName') lastName: string,
-    @Body('email') email: string,
-    @Body('password') password: string,
-    @Body('gender') gender: string,
-    @Body('dateOfBirth') dateOfBirth: Date,
-    @Body('country') country: string,
-    @Body('state') state: string,
-    @Body('city') city: string,
-  ) {
-    const user = await this.authService.signup({
-      firstName,
-      lastName,
-      email,
-      password,
-      gender,
-      dateOfBirth,
-      country,
-      state,
-      city,
-    });
-    return user;
+  async signup(@Body() signupDto: SignupDto) {
+    try {
+      const user = await this.authService.signup(signupDto);
+      return user;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   @Post('login')

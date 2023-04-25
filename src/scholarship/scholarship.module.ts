@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ScholarshipSchema } from 'src/dto/scholarship.schema';
+import { ScholarshipSchema } from 'src/scholarship/scholarship.schema';
 // import { ScholarshipSchema, Scholarship } from './scholarship.schema';
 // import { ScholarshipsController } from './scholarships.controller';
 // import { ScholarshipsService } from './scholarships.service';
