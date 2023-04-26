@@ -9,7 +9,7 @@ import { SignupDto } from 'src/dto/signup.dto';
 @Injectable()
 export class AuthService {
   constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
-  
+
   async signup(signupDto: SignupDto): Promise<any> {
     const {
       firstName,
@@ -57,7 +57,10 @@ export class AuthService {
     console.log('user:', user);
     console.log('password:', user.password.toString());
 
-    const isPasswordValid = await bcrypt.compare(password, user.password.toString());
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      user.password.toString,
+    );
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }

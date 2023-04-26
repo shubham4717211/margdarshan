@@ -9,7 +9,11 @@ export const ScholarshipSchema = new mongoose.Schema({
   applicationProcess: { type: String, required: true },
   amount: { type: Number, required: true },
   duration: { type: String, required: true },
-  level: { type: String, enum: ['undergraduate', 'graduate', 'doctoral'], required: true },
+  level: {
+    type: String,
+    enum: ['undergraduate', 'graduate', 'doctoral'],
+    required: true,
+  },
   fieldOfStudy: { type: String, required: true },
   location: { type: String, required: true },
   website: { type: String, required: true },
