@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "74ad6bd7-9009-4377-a9ef-30e4e93dc0ff",
+		"name": "Margdarshan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21961229"
+	},
+	"item": [
+		{
+			"name": "hello",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDQ3YmMyZjBiZGE3NWRiZWQzZTllZGEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODI0MjI4MzEsImV4cCI6MTY4MjQyNjQzMX0.givr2YNowp8sPWNG-2u7VaGyOSDVG8DxNzD_DG1fGUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDQ3YmMyZjBiZGE3NWRiZWQzZTllZGEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODI0MjI4MzEsImV4cCI6MTY4MjQyNjQzMX0.givr2YNowp8sPWNG-2u7VaGyOSDVG8DxNzD_DG1fGUQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:9000",
+					"host": [
+						"localhost"
+					],
+					"port": "9000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Doe\",\r\n  \"email\": \"johndoe@example.com\",\r\n  \"password\": \"mypassword\",\r\n  \"gender\": \"Male\",\r\n  \"dateOfBirth\": \"1990-01-01\",\r\n  \"country\": \"USA\",\r\n  \"state\": \"California\",\r\n  \"city\": \"San Francisco\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/auth/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"johndoe@example.com\",\r\n  \"password\": \"mypassword\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -74,10 +74,18 @@ export class AuthService {
   }
 
   generateToken(payload: any, expiresIn: string): string {
-    return jwt.sign(payload, 'your-secret-key', { expiresIn });
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      throw new Error('JWT secret not defined in .env file');
+    }
+    return jwt.sign(payload, jwtSecret, { expiresIn });
   }
 
-  verifyToken(token: string): any {
-    return jwt.verify(token, 'your-secret-key');
-  }
+  // verifyToken(token: string): any {
+    // const jwtSecret = process.env.JWT_SECRET;
+    // if (!jwtSecret) {
+    //   throw new Error('JWT secret not defined in .env file');
+    // }
+  //   return jwt.verify(token, jwtSecret);
+  // }
 }

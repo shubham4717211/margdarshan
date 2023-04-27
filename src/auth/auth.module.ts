@@ -10,7 +10,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
   imports: [
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema },]),
     // JwtModule.register({
-    //   secret: 'your-secret-key',
+    //   secret: process.env.JWT_SECRET,
     //   signOptions: { expiresIn: '30d' },
     // }),
   ],

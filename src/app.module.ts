@@ -6,17 +6,18 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserSchema } from './user/user.schema';
 import { ScholarshipSchema } from './scholarship/scholarship.schema';
 import { AuthModule } from './auth/auth.module';
-
+import { config } from 'dotenv';
+config();
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://shubham:123@cluster0.x8dbuw7.mongodb.net/test',
+      process.env.DATABASE_URL as string,
     ),
     MongooseModule.forFeature([
-      { name: 'Scholarship', schema: ScholarshipSchema }, // add the ScholarshipSchema here
+      { name: 'Scholarship', schema: ScholarshipSchema },
     ]),
     JwtModule.register({
-      secret: 'your-secret-key', // Replace with your own secret key
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '30d' }, // Token expires after 30 days
     }),
     AuthModule,
