@@ -11,9 +11,9 @@ export const UserSchema = new mongoose.Schema({
   pin: { type: Number, required: true },
   state: { type: String, required: true },
   city: { type: String, required: true },
-  education : { type: String, required: true },
-  level_of_study : { type: String, required: true },
-  field_of_study : { type: String, required: true },
+  education: { type: String, required: true },
+  level_of_study: { type: String, required: true },
+  field_of_study: { type: String, required: true },
   bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Scholarship' }],
   createdAt: { type: Date, default: Date.now },
 });
@@ -29,9 +29,9 @@ export interface User extends mongoose.Document {
   pin: number;
   state: string;
   city: string;
-  education : string;
-  level_of_study : string;
-  field_of_study : string;
+  education: string;
+  level_of_study: string;
+  field_of_study: string;
   bookmarks: string[];
   createdAt: Date;
 }

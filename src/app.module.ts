@@ -11,8 +11,9 @@ config();
 @Module({
   imports: [
     MongooseModule.forRoot(
-      process.env.DATABASE_URL as string,
+      process.env.DATABASE_URL || 'mongodb://localhost:27017/margdarshan',
     ),
+
     MongooseModule.forFeature([
       { name: 'Scholarship', schema: ScholarshipSchema },
     ]),

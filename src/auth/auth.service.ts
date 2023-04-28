@@ -9,7 +9,7 @@ import { SignupDto } from 'src/dto/signup.dto';
 @Injectable()
 export class AuthService {
   constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
-  
+
   async signup(signupDto: SignupDto): Promise<any> {
     const {
       firstName,
@@ -82,10 +82,10 @@ export class AuthService {
   }
 
   // verifyToken(token: string): any {
-    // const jwtSecret = process.env.JWT_SECRET;
-    // if (!jwtSecret) {
-    //   throw new Error('JWT secret not defined in .env file');
-    // }
+  // const jwtSecret = process.env.JWT_SECRET;
+  // if (!jwtSecret) {
+  //   throw new Error('JWT secret not defined in .env file');
+  // }
   //   return jwt.verify(token, jwtSecret);
   // }
 }
