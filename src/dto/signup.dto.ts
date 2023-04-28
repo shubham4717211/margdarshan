@@ -1,13 +1,14 @@
-import { IsString, IsEmail, IsNotEmpty, IsDateString } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, IsDateString, IsNumber } from 'class-validator';
+import { Gender } from 'src/emun/gender.enum';
 
 export class SignupDto {
   @IsNotEmpty()
   @IsString()
-  firstName: string;
+  fullName: string;
 
-  @IsNotEmpty()
-  @IsString()
-  lastName: string;
+  // @IsNotEmpty()
+  // @IsString()
+  // lastName: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -19,15 +20,15 @@ export class SignupDto {
 
   @IsNotEmpty()
   @IsString()
-  gender: string;
+  gender: Gender;
+
+  // @IsNotEmpty()
+  // @IsDateString()
+  // dateOfBirth: string;
 
   @IsNotEmpty()
-  @IsDateString()
-  dateOfBirth: string;
-
-  @IsNotEmpty()
-  @IsString()
-  country: string;
+  @IsNumber()
+  pin: number;
 
   @IsNotEmpty()
   @IsString()
@@ -36,4 +37,16 @@ export class SignupDto {
   @IsNotEmpty()
   @IsString()
   city: string;
+
+  // @IsNotEmpty()
+  // @IsString()
+  // education : string;
+
+  @IsNotEmpty()
+  @IsString()
+  level_of_study : string;
+
+  @IsNotEmpty()
+  @IsString()
+  field_of_study : string;
 }

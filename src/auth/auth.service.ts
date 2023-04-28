@@ -12,28 +12,34 @@ export class AuthService {
   
   async signup(signupDto: SignupDto): Promise<any> {
     const {
-      firstName,
-      lastName,
+      fullName,
+      // lastName,
       email,
       password,
       gender,
-      dateOfBirth,
-      country,
+      // dateOfBirth,
+      pin,
       state,
       city,
+      // education,
+      level_of_study,
+      field_of_study,
     } = signupDto;
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const createdUser = new this.userModel({
-      firstName,
-      lastName,
+      fullName,
+      // lastName,
       email,
       password: hashedPassword,
       gender,
-      dateOfBirth: new Date(dateOfBirth),
-      country,
+      // dateOfBirth: new Date(dateOfBirth),
+      pin,
       state,
       city,
+      // education,
+      level_of_study,
+      field_of_study,
     });
     const savedUser = await createdUser.save();
 
@@ -57,7 +63,7 @@ export class AuthService {
     // console.log('user:', user);
     // console.log('password:', user.password.toString());
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password.toString());
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }

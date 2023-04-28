@@ -11,7 +11,7 @@ export const UserSchema = new mongoose.Schema({
   pin: { type: Number, required: true },
   state: { type: String, required: true },
   city: { type: String, required: true },
-  education : { type: String, required: true },
+  // education : { type: String, required: true },
   level_of_study : { type: String, required: true },
   field_of_study : { type: String, required: true },
   bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Scholarship' }],
