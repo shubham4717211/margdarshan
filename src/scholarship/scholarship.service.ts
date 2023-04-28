@@ -11,7 +11,9 @@ export class ScholarshipService {
   ) {}
 
   async getScholarshipSlugs(): Promise<string[]> {
-    const scholarships = await this.scholarshipModel.find({}, { slug: 1, _id: 0 }).lean();
+    const scholarships = await this.scholarshipModel
+      .find({}, { slug: 1, _id: 0 })
+      .lean();
     return scholarships.map(({ slug }) => slug);
   }
 }

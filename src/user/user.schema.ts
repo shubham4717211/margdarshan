@@ -29,9 +29,9 @@ export interface User extends mongoose.Document {
   pin: number;
   state: string;
   city: string;
-  education : string;
-  level_of_study : string;
-  field_of_study : string;
+  education: string;
+  level_of_study: string;
+  field_of_study: string;
   bookmarks: string[];
   createdAt: Date;
 }
