@@ -14,7 +14,7 @@ export const UserSchema = new mongoose.Schema({
   // education : { type: String, required: true },
   level_of_study : { type: String, required: true },
   field_of_study : { type: String, required: true },
-  bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Scholarship' }],
+  bookmarks: [{ type: String, ref: 'Scholarship' }],
   createdAt: { type: Date, default: Date.now },
 });
 

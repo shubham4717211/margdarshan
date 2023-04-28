@@ -7,6 +7,8 @@ import { UserSchema } from './user/user.schema';
 import { ScholarshipSchema } from './scholarship/scholarship.schema';
 import { AuthModule } from './auth/auth.module';
 import { config } from 'dotenv';
+import { ScholarshipModule } from './scholarship/scholarship.module.ts';
+import { UserModule } from './user/user.module';
 config();
 @Module({
   imports: [
@@ -22,6 +24,8 @@ config();
       signOptions: { expiresIn: '30d' }, // Token expires after 30 days
     }),
     AuthModule,
+    ScholarshipModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

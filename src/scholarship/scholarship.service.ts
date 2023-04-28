@@ -16,4 +16,9 @@ export class ScholarshipService {
       .lean();
     return scholarships.map(({ slug }) => slug);
   }
+
+  async create(scholarship: Scholarship): Promise<Scholarship> {
+    const createdScholarship = new this.scholarshipModel(scholarship);
+    return createdScholarship.save();
+  }
 }
