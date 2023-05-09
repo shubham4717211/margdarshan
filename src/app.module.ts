@@ -16,13 +16,13 @@ config();
       process.env.DATABASE_URL || 'mongodb://localhost:27017/margdarshan',
     ),
 
-    MongooseModule.forFeature([
-      { name: 'Scholarship', schema: ScholarshipSchema },
-    ]),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '30d' }, // Token expires after 30 days
-    }),
+    // MongooseModule.forFeature([
+    //   { name: 'Scholarship', schema: ScholarshipSchema },
+    // ]),
+    // JwtModule.register({
+    //   secret: process.env.JWT_SECRET,
+    //   signOptions: { expiresIn: '30d' }, // Token expires after 30 days
+    // }),
     AuthModule,
     ScholarshipModule,
     UserModule,

@@ -5,12 +5,13 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { UserSchema, User } from 'src/user/user.schema';
 import { SignupDto } from 'src/dto/signup.dto';
+import { CookieOptions, Response  } from 'express';
 
 @Injectable()
 export class AuthService {
   constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
-  async signup(signupDto: SignupDto): Promise<any> {
+  async signup(signupDto: SignupDto, res: Response): Promise<{ access_token: string, payload: { userId: string, email: string } }> {
     const {
       fullName,
       // lastName,
@@ -47,15 +48,14 @@ export class AuthService {
       userId: savedUser._id,
       email: savedUser.email,
     };
-    const access_token = this.generateToken(payload, '1h');
-    const refresh_token = this.generateToken(payload, '30d');
+    const access_token = this.generateToken(payload, '1h', res);
     return {
       access_token,
-      refresh_token,
+      payload
     };
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string, res: Response): Promise<{ access_token: string, payload: { userId: string, email: string } }> {
     const user = await this.userModel.findOne({ email });
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
@@ -63,29 +63,40 @@ export class AuthService {
     // console.log('user:', user);
     // console.log('password:', user.password.toString());
 
-    const isPasswordValid = await bcrypt.compare(password, user.password.toString());
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
     const payload = {
-      userId: user._id,
+      userId: user._id.toString(),
       email: user.email,
     };
-    const access_token = this.generateToken(payload, '1h');
-    const refresh_token = this.generateToken(payload, '30d');
+    const access_token = this.generateToken(payload, '1h', res);
     return {
       access_token,
-      refresh_token,
       payload,
     };
   }
 
-  generateToken(payload: any, expiresIn: string): string {
+  generateToken(payload: any, expiresIn: string, res: Response): string {
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
       throw new Error('JWT secret not defined in .env file');
     }
-    return jwt.sign(payload, jwtSecret, { expiresIn });
+  
+    const token = jwt.sign(payload, jwtSecret, { expiresIn });
+  
+    const cookieOptions: CookieOptions = {
+      maxAge: parseInt(expiresIn) * 1000, // Convert expiresIn to milliseconds
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    };
+  
+    // Set the cookie with the token
+    res.cookie('access_token', token, cookieOptions);
+  
+    return token;
   }
 
   // verifyToken(token: string): any {

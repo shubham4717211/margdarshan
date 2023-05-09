@@ -5,7 +5,7 @@ export const UserSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   // lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: Buffer, required: true },
+  password: { type: String, required: true },
   gender: { type: String, enum: Object.values(Gender), required: true },
   // dateOfBirth: { type: Date, required: true },
   pin: { type: Number, required: true },

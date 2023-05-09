@@ -31,7 +31,7 @@ export class UserService {
       })
       .exec();
 
-    console.log(user, scholarships)
+    // console.log(user, scholarships)
     return scholarships;
   }
 }

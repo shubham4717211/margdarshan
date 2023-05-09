@@ -9,10 +9,10 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-    // JwtModule.register({
-    //   secret: process.env.JWT_SECRET,
-    //   signOptions: { expiresIn: '30d' },
-    // }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '30d' }, // Token expires after 30 days
+    }),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtAuthGuard],
