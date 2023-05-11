@@ -1,7 +1,7 @@
 import { IsString, IsEmail, IsNotEmpty, IsDateString, IsNumber } from 'class-validator';
 import { Gender } from 'src/emun/gender.enum';
 
-export class SignupDto {
+export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   fullName: string;

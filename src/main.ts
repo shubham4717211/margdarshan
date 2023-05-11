@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
-import { LoggingFilter } from './logger/logging.filter';
-import { LoggingService } from './logger/logging.service';
+import { LoggingFilter } from './middleware/logging.filter';
+import { LoggingService } from './services/logging.service';
 config();
 
 async function bootstrap() {

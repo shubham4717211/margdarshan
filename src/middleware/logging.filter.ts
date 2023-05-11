@@ -1,5 +1,5 @@
 import { Catch, ArgumentsHost } from '@nestjs/common';
-import { LoggingService } from './logging.service';
+import { LoggingService } from '../services/logging.service';
 import { BaseExceptionFilter } from '@nestjs/core';
 
 @Catch()

@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { AuthController } from '../controllers/auth.controller';
+import { AuthService } from '../services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { UserSchema } from 'src/user/user.schema';
-import { JwtAuthGuard } from './jwt-auth.guard';
+;
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { UserSchema } from 'src/data/user/user.schema';
+import { UserDataService } from 'src/data/user/user.data.service';
 
 @Module({
   imports: [
@@ -15,6 +17,6 @@ import { JwtAuthGuard } from './jwt-auth.guard';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtAuthGuard],
+  providers: [AuthService, JwtAuthGuard, UserDataService],  
 })
 export class AuthModule {}

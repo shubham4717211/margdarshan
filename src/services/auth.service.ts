@@ -1,52 +1,23 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { UserSchema, User } from 'src/user/user.schema';
-import { SignupDto } from 'src/dto/signup.dto';
+import { CreateUserDto } from 'src/dto/user.dto';
 import { CookieOptions, Response  } from 'express';
+import { UserDataService } from 'src/data/user/user.data.service';
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
+  constructor(private readonly userDataService: UserDataService) {}
 
-  async signup(signupDto: SignupDto, res: Response): Promise<{ access_token: string, payload: { userId: string, email: string } }> {
-    const {
-      fullName,
-      // lastName,
-      email,
-      password,
-      gender,
-      // dateOfBirth,
-      pin,
-      state,
-      city,
-      // education,
-      level_of_study,
-      field_of_study,
-    } = signupDto;
+  async signup(signupDto: CreateUserDto, res: Response): Promise<{ access_token: string, payload: { userId: string, email: string } }> {
+    
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const createdUser = new this.userModel({
-      fullName,
-      // lastName,
-      email,
-      password: hashedPassword,
-      gender,
-      // dateOfBirth: new Date(dateOfBirth),
-      pin,
-      state,
-      city,
-      // education,
-      level_of_study,
-      field_of_study,
-    });
-    const savedUser = await createdUser.save();
+    signupDto.password = await bcrypt.hash(signupDto.password, 10);
+    const createdUser = await this.userDataService.createUser(signupDto)
 
     const payload = {
-      userId: savedUser._id,
-      email: savedUser.email,
+      userId: createdUser._id,
+      email: createdUser.email,
     };
     const access_token = this.generateToken(payload, '1h', res);
     return {
@@ -55,18 +26,21 @@ export class AuthService {
     };
   }
 
-  async login(email: string, password: string, res: Response): Promise<{ access_token: string, payload: { userId: string, email: string } }> {
-    const user = await this.userModel.findOne({ email });
+  async login(
+    email: string,
+    password: string,
+    res: Response,
+  ): Promise<{ access_token: string; payload: { userId: string; email: string } }> {
+    const user = await this.userDataService.getUserByEmail(email);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    // console.log('user:', user);
-    // console.log('password:', user.password.toString());
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
+
     const payload = {
       userId: user._id.toString(),
       email: user.email,

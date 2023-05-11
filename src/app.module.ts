@@ -3,12 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
-import { UserSchema } from './user/user.schema';
-import { ScholarshipSchema } from './scholarship/scholarship.schema';
-import { AuthModule } from './auth/auth.module';
+
+import { AuthModule } from './modules/auth.module';
 import { config } from 'dotenv';
-import { ScholarshipModule } from './scholarship/scholarship.module.ts';
-import { UserModule } from './user/user.module';
+import { ScholarshipModule } from './modules/scholarship.module.ts';
+import { UserModule } from './modules/user.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ResponseInterceptor } from './interceptors/responseInterceptor';
 config();
 @Module({
   imports: [
@@ -28,6 +29,12 @@ config();
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseInterceptor,
+    },
+  ],
 })
 export class AppModule {}
