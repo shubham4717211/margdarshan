@@ -2,7 +2,7 @@ import { BadRequestException, Body, Controller, Post, Res } from '@nestjs/common
 import { AuthService } from '../services/auth.service';
 import { CreateUserDto } from 'src/dto/user.dto';
 import { Response } from 'express';
-@Controller('auth')
+@Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

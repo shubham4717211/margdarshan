@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { UserSchema } from 'src/data/user/user.schema';
 import { UserDataService } from 'src/data/user/user.data.service';
+import { RouterModule } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -15,6 +16,12 @@ import { UserDataService } from 'src/data/user/user.data.service';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '30d' }, // Token expires after 30 days
     }),
+    RouterModule.register([
+      {
+        path: 'auth',
+        module: AuthController,
+      },
+    ]),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtAuthGuard, UserDataService],  

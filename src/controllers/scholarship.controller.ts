@@ -5,7 +5,7 @@ import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { GetUser } from 'src/guards/user.guard';
 import { ScholarshipUserInterface } from 'src/interface/scholarship.interface';
 
-@Controller('scholarship')
+@Controller()
 export class ScholarshipController {
   constructor(private readonly scholarshipService: ScholarshipService) {}
 
