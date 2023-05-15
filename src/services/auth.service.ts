@@ -9,7 +9,7 @@ import { UserDataService } from 'src/data/user/user.data.service';
 export class AuthService {
   constructor(private readonly userDataService: UserDataService) {}
 
-  async signup(signupDto: CreateUserDto, res: Response): Promise<{ access_token: string, payload: { userId: string, email: string } }> {
+  async signup(signupDto: CreateUserDto, ): Promise<{ access_token: string, payload: { userId: string, email: string } }> {
     
 
     signupDto.password = await bcrypt.hash(signupDto.password, 10);
@@ -19,9 +19,9 @@ export class AuthService {
       userId: createdUser._id,
       email: createdUser.email,
     };
-    const access_token = this.generateToken(payload, '1h', res);
+    // const access_token = this.generateToken(payload, '1h', res);
     return {
-      access_token,
+      access_token:'',
       payload
     };
   }
@@ -29,7 +29,6 @@ export class AuthService {
   async login(
     email: string,
     password: string,
-    res: Response,
   ): Promise<{ access_token: string; payload: { userId: string; email: string } }> {
     const user = await this.userDataService.getUserByEmail(email);
     if (!user) {
@@ -45,9 +44,9 @@ export class AuthService {
       userId: user._id.toString(),
       email: user.email,
     };
-    const access_token = this.generateToken(payload, '1h', res);
+    // const access_token = this.generateToken(payload, '1h', res);
     return {
-      access_token,
+      access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxYjQ5ZjI4YWE5ZGIyYThkYWEwZGIiLCJlbWFpbCI6InFhQGV4YW1wbGUuY29tIiwiaWF0IjoxNjg0MTI1MDEyLCJleHAiOjE2ODQxMjg2MTJ9.tvFGx0NcB_EzcuLYsvnH3a_HDTiKzMws5bmH4YBRWjk',
       payload,
     };
   }

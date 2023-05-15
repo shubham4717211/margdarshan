@@ -2,7 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
 import { LoggingFilter } from './middleware/logging.filter';
-import { LoggingService } from './services/logging.service';
+import { WinstonLoggingService } from './services/logging.service';
+import { ResponseInterceptor } from './interceptors/responseInterceptor';
 config();
 
 async function bootstrap() {
@@ -14,8 +15,9 @@ async function bootstrap() {
     credentials: true,
   });
 
-  const loggingService = new LoggingService();
-  app.useGlobalFilters(new LoggingFilter(loggingService));
+  const loggingService = new WinstonLoggingService();
+  // app.useGlobalFilters(new LoggingFilter(loggingService));
+  app.useGlobalInterceptors(new ResponseInterceptor())
 
   if (!process.env.PORT) {
     throw new Error('PORT not defined in .env file');

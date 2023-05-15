@@ -1,30 +1,31 @@
-import { Catch, ArgumentsHost } from '@nestjs/common';
-import { LoggingService } from '../services/logging.service';
-import { BaseExceptionFilter } from '@nestjs/core';
+import { Catch, ArgumentsHost, HttpException } from '@nestjs/common';
+import { ILoggingService } from 'src/services/logging.interface';
 
 @Catch()
-export class LoggingFilter extends BaseExceptionFilter {
-  constructor(private readonly loggingService: LoggingService) {
-    super();
-  }
+export class LoggingFilter {
+  constructor(private readonly loggingService: ILoggingService) {}
 
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-    const request = ctx.getRequest();
     const response = ctx.getResponse();
 
-    const status = exception.getStatus();
-    const message = exception.message || 'Internal server error';
+    let status = 500;
+    let message = 'Internal server error';
+
+    if (exception instanceof HttpException) {
+      status = exception.getStatus();
+      message = exception.message;
+    }
 
     // Log the error in a file
-    this.loggingService.logError(exception.message, exception.stack);
+    this.loggingService.logError(message, exception.stack);
 
-    super.catch(exception, host);
-
-    // Send the error response to the client
-    response.status(status).json({
-      statusCode: status,
-      message,
-    });
+    // Send the error response to the client if headers are not sent
+    // if (!response.headersSent) {
+      response.status(status).json({
+        statusCode: status,
+        message,
+      });
+    // }
   }
 }
