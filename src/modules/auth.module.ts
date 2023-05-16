@@ -5,8 +5,8 @@ import { AuthService } from '../services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 ;
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { UserSchema } from 'src/data/user/user.schema';
-import { UserDataService } from 'src/data/user/user.data.service';
+import { UserSchema } from 'src/schemas/user.schema';
+import { UserDataService } from 'src/data/user.data.service';
 import { RouterModule } from '@nestjs/core';
 
 @Module({

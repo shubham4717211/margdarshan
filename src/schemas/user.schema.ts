@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { Gender } from '../../emun/gender.enum';
+import { Gender } from '../emun/gender.enum';
 
 export const UserSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
