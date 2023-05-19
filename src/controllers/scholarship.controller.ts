@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ScholarshipService } from '../services/scholarship.service';
-import { Scholarship } from '../data/scholarship/scholarship.schema';
+import { Scholarship } from '../schemas/scholarship.schema';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
-import { GetUser } from 'src/guards/user.guard';
+import { GetUser } from 'src/decorators/user.decorator';
 import { ScholarshipUserInterface } from 'src/interface/scholarship.interface';
 
 @Controller()

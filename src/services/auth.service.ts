@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { CreateUserDto } from 'src/dto/user.dto';
 import { CookieOptions, Response  } from 'express';
-import { UserDataService } from 'src/data/user/user.data.service';
+import { UserDataService } from 'src/data/user.data.service';
 
 @Injectable()
 export class AuthService {
