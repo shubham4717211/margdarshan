@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { CreateUserDto } from 'src/dto/user.dto';
 import { CookieOptions, Response  } from 'express';
-import { UserDataService } from 'src/data/user/user.data.service';
+import { UserDataService } from 'src/data/user.data.service';
 
 @Injectable()
 export class AuthService {
@@ -20,8 +20,9 @@ export class AuthService {
       email: createdUser.email,
     };
     // const access_token = this.generateToken(payload, '1h', res);
+    const access_token = this.generateToken(payload, '1h');
     return {
-      access_token:'',
+      access_token:access_token,
       payload
     };
   }
@@ -44,14 +45,14 @@ export class AuthService {
       userId: user._id.toString(),
       email: user.email,
     };
-    // const access_token = this.generateToken(payload, '1h', res);
+    const access_token = this.generateToken(payload, '1h');
     return {
-      access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYxYjQ5ZjI4YWE5ZGIyYThkYWEwZGIiLCJlbWFpbCI6InFhQGV4YW1wbGUuY29tIiwiaWF0IjoxNjg0MTI1MDEyLCJleHAiOjE2ODQxMjg2MTJ9.tvFGx0NcB_EzcuLYsvnH3a_HDTiKzMws5bmH4YBRWjk',
+      access_token: access_token,
       payload,
     };
   }
 
-  generateToken(payload: any, expiresIn: string, res: Response): string {
+  generateToken(payload: any, expiresIn: string): string {
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
       throw new Error('JWT secret not defined in .env file');
@@ -67,7 +68,7 @@ export class AuthService {
     };
   
     // Set the cookie with the token
-    res.cookie('access_token', token, cookieOptions);
+    // res.cookie('access_token', token, cookieOptions);
   
     return token;
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Scholarship } from './scholarship.schema';
+import { Scholarship } from '../schemas/scholarship.schema';
 import { ScholarshipUserInterface } from 'src/interface/scholarship.interface';
 
 @Injectable()
