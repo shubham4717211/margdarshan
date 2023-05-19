@@ -10,7 +10,7 @@ export class ScholarshipController {
   constructor(private readonly scholarshipService: ScholarshipService) {}
 
   @Get('scholarship')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async getUserScholarships(@GetUser() user: ScholarshipUserInterface ) {
     return this.scholarshipService.getUserScholarships(user);
   }
