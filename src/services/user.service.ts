@@ -13,6 +13,10 @@ export class UserService {
     if (createdUser){
       return 'User Updated'
     }
-    
+  }
+  async getUser(userId:string) {
+    const getUser = await this.userDataService.getUserById(userId)
+    return getUser
+
   }
 }
