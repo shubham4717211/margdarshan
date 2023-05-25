@@ -1,5 +1,5 @@
 import * as winston from 'winston';
-import { ILoggingService } from './logging.interface';
+import { ILoggingService } from '../interface/logging.interface';
 
 export class WinstonLoggingService implements ILoggingService{
   private logger: winston.Logger;

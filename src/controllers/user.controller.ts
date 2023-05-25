@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards, ValidationPipe } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { request } from 'https';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
@@ -13,8 +13,8 @@ export class UserController {
 
   @Post('on-board')
   @UseGuards(JwtAuthGuard)
-  async signup(@Body() onBoardDto: OnBoardDto, @GetUser() user: ScholarshipUserInterface) {
-    const userData = await this.userService.onBoard(user.id,onBoardDto);
+  async signup(@Body(ValidationPipe) onBoardDto: OnBoardDto, @GetUser() user: ScholarshipUserInterface) {
+    const userData = await this.userService.onBoard(user.userId,onBoardDto);
     return userData;
   }
 }

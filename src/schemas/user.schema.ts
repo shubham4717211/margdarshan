@@ -8,12 +8,17 @@ export const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   gender: { type: String, enum: Object.values(Gender), required: true },
   // dateOfBirth: { type: Date, required: true },
-  pin: { type: Number, required: true },
-  state: { type: String, required: true },
-  city: { type: String, required: true },
+  pin: { type: Number },
+  state: { type: String },
+  city: { type: String},
   // education : { type: String, required: true },
-  level_of_study : { type: String, required: true },
-  field_of_study : { type: String, required: true },
+  level_of_study : { type: String },
+  field_of_study : { type: String },
+  degree : { type: String },
+  category  : { type: String },
+  father_yearly_income: { type: Number },
+  tenth_percentage: { type: Number },
+  twelve_percentage: { type: Number },
   bookmarks: [{ type: String, ref: 'Scholarship' }],
   createdAt: { type: Date, default: Date.now },
 });
@@ -32,6 +37,11 @@ export interface User extends mongoose.Document {
   education: string;
   level_of_study: string;
   field_of_study: string;
+  degree: string;
+  category : string;
+  father_yearly_income: number;
+  tenth_percentage: number;
+  twelve_percentage: number;
   bookmarks: string[];
   createdAt: Date;
 }

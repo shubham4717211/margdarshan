@@ -8,10 +8,11 @@ import { OnBoardDto } from 'src/dto/on-board.dto';
 export class UserService {
   constructor(private readonly userDataService: UserDataService) {}
 
-  async onBoard(userId:string,onBoardDto: OnBoardDto, ): Promise<{ }> {
+  async onBoard(userId:string,onBoardDto: OnBoardDto, ) {
     const createdUser = await this.userDataService.updateUser(userId, onBoardDto)
-    return {
-      payload:''
-    };
+    if (createdUser){
+      return 'User Updated'
+    }
+    
   }
 }
