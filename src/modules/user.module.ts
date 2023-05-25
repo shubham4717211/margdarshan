@@ -4,6 +4,7 @@ import { UserController } from '../controllers/user.controller';
 import { UserService } from '../services/user.service';
 import { UserSchema } from '../schemas/user.schema';
 import { RouterModule } from '@nestjs/core';
+import { UserDataService } from 'src/data/user.data.service';
 
 
 @Module({
@@ -19,6 +20,6 @@ import { RouterModule } from '@nestjs/core';
     ]),
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, UserDataService],
 })
 export class UserModule {}
