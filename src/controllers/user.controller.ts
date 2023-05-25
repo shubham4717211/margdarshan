@@ -17,4 +17,11 @@ export class UserController {
     const userData = await this.userService.onBoard(user.userId,onBoardDto);
     return userData;
   }
+
+  @Get('user')
+  @UseGuards(JwtAuthGuard)
+  async getUser( @GetUser() user: ScholarshipUserInterface) {
+    const userData = await this.userService.getUser(user.userId);
+    return userData
+  }
 }
