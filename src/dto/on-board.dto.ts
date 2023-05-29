@@ -1,13 +1,13 @@
-import { IsString, IsEmail, IsNotEmpty, IsDateString, IsNumber, IsOptional } from 'class-validator';
-import { Gender } from 'src/emun/gender.enum';
+import { IsString, IsDateString, IsNumber, IsOptional } from 'class-validator';
 
 export class OnBoardDto {
   @IsOptional()
   @IsString()
   fullName: string;
 
-  // @IsDateString()
-  // dateOfBirth: string;
+  @IsOptional()
+  @IsDateString()
+  dateOfBirth: string;
 
   @IsOptional()
   @IsNumber()
@@ -27,19 +27,19 @@ export class OnBoardDto {
 
   @IsOptional()
   @IsString()
-  level_of_study : string;
+  level_of_study: string;
 
   @IsOptional()
   @IsString()
-  field_of_study : string;
+  field_of_study: string;
 
   @IsOptional()
   @IsString()
-  degree : string;
+  degree: string;
 
   @IsOptional()
   @IsString()
-  category  : string;
+  category: string;
 
   @IsOptional()
   @IsNumber()

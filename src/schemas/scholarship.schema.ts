@@ -18,29 +18,29 @@ export const ScholarshipSchema = new mongoose.Schema({
   gender: { type: String, enum: Object.values(Gender), required: false },
   state: { type: String, required: false },
   // level_of_study: { type: String, enum: ['undergraduate', 'graduate', 'doctoral'], required: true },
-  level_of_study : { type: String, required: false },
+  level_of_study: { type: String, required: false },
   fieldOfStudy: { type: String, required: false },
-  tag : { type: [{ type: String }], required: false },
+  tag: { type: [{ type: String }], required: false },
 });
 
 export interface Scholarship extends mongoose.Document {
   id: string;
   slug: string;
   title: string;
-  startDate:Date;
+  startDate: Date;
   endDate: Date;
   scholarshipType: string;
-  isFemaleOnly: Boolean;
+  isFemaleOnly: boolean;
   category: string;
   Religion: string;
   minimumFamilyIncome: string;
   marksRequired: string;
-  doStudentNeedToTakeExam: Boolean;
-  isStartDateExact: Boolean;
-  isEndDateExact: Boolean;
+  doStudentNeedToTakeExam: boolean;
+  isStartDateExact: boolean;
+  isEndDateExact: boolean;
   gender: Gender;
   state: string;
-  level_of_study : string;
-  fieldOfStudy:string;
-  tag:string[];
+  level_of_study: string;
+  fieldOfStudy: string;
+  tag: string[];
 }
