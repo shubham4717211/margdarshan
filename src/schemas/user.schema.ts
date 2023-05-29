@@ -6,8 +6,8 @@ export const UserSchema = new mongoose.Schema({
   // lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  gender: { type: String, enum: Object.values(Gender), required: true },
-  dateOfBirth: { type: Date, required: true },
+  gender: { type: String, enum: Object.values(Gender) },
+  dateOfBirth: { type: String },
   pin: { type: Number },
   state: { type: String },
   city: { type: String },
@@ -30,7 +30,7 @@ export interface User extends mongoose.Document {
   email: string;
   password: string;
   gender: Gender;
-  // dateOfBirth: Date;
+  // dateOfBirth: string;
   pin: number;
   state: string;
   city: string;
