@@ -11,16 +11,26 @@ export class ScholarshipDataService {
   ) {}
 
   async findScholarships(user:ScholarshipUserInterface): Promise<Scholarship[]> {
+    // const matchStage = {
+    //   state: user.state,
+    //   level_of_study: user.level_of_study,
+    //   fieldOfStudy: user.field_of_study,
+    //   gender: user.gender === 'female' ? user.gender : 'all',
+    // };
+
+    const matchStage = {
+      $or: [
+        { state: user.state },
+        { level_of_study: user.level_of_study },
+        { fieldOfStudy: user.field_of_study },
+        { gender: user.gender === 'Female' ? user.gender : 'all' },
+      ],
+    };
+  
     return this.scholarshipModel.aggregate([
-      {
-        $match: {
-          state: user.state,
-          level_of_study: user.level_of_study,
-          fieldOfStudy: user.field_of_study,
-          gender: { $in: [user.gender, 'all'] },
-        },
-      },
-      // Additional aggregation stages if needed
+      { $match: matchStage },
+      { $sample: { size: 8 } }, // Get a random sample of 8 scholarships
+      { $limit: 8 } // Ensure a minimum of 8 scholarships are returned
     ]).exec();
   }
 }
