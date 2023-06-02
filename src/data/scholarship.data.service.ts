@@ -23,7 +23,7 @@ export class ScholarshipDataService {
         { state: user.state },
         { level_of_study: user.level_of_study },
         { fieldOfStudy: user.field_of_study },
-        { gender: user.gender === 'female' ? user.gender : 'all' },
+        { gender: user.gender === 'Female' ? user.gender : 'all' },
       ],
     };
   
