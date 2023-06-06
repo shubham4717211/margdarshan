@@ -10,6 +10,7 @@ import { ScholarshipModule } from './modules/scholarship.module.ts';
 import { UserModule } from './modules/user.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './interceptors/responseInterceptor';
+import { ChatbotModule } from './modules/chatbot.module';
 config();
 @Module({
   imports: [
@@ -27,6 +28,7 @@ config();
     AuthModule,
     ScholarshipModule,
     UserModule,
+    ChatbotModule
   ],
   controllers: [AppController],
   providers: [

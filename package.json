@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@dqbd/tiktoken": "^1.0.7",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^10.0.3",
@@ -31,7 +32,9 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
     "mongoose": "^7.0.4",
+    "openai": "^3.2.1",
     "passport-jwt": "^4.0.1",
+    "rate-limiter-flexible": "^2.4.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "winston": "^3.8.2"
