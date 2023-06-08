@@ -21,6 +21,7 @@ export const ScholarshipSchema = new mongoose.Schema({
   level_of_study: { type: String, required: false },
   fieldOfStudy: { type: String, required: false },
   tag: { type: [{ type: String }], required: false },
+  description: { type: String, required: false },
 });
 
 export interface Scholarship extends mongoose.Document {
@@ -43,4 +44,5 @@ export interface Scholarship extends mongoose.Document {
   level_of_study: string;
   fieldOfStudy: string;
   tag: string[];
+  description: string;
 }
