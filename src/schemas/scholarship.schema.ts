@@ -18,8 +18,8 @@ export const ScholarshipSchema = new mongoose.Schema({
   gender: { type: String, enum: Object.values(Gender), required: false },
   state: { type: String, required: false },
   // level_of_study: { type: String, enum: ['undergraduate', 'graduate', 'doctoral'], required: true },
-  level_of_study: { type: String, required: false },
-  feild_of_study: { type: String, required: false },
+  level_of_study: { type: [{ type: String }], required: false },
+  feild_of_study: { type: [{ type: String }], required: false },
   tag: { type: [{ type: String }], required: false },
   description: { type: String, required: false },
 });
@@ -41,8 +41,8 @@ export interface Scholarship extends mongoose.Document {
   isEndDateExact: boolean;
   gender: Gender;
   state: string;
-  level_of_study: string;
-  feild_of_study: string;
+  level_of_study: string[];
+  feild_of_study: string[];
   tag: string[];
   description: string;
 }
