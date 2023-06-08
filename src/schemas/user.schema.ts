@@ -30,7 +30,7 @@ export interface User extends mongoose.Document {
   email: string;
   password: string;
   gender: Gender;
-  // dateOfBirth: string;
+  dateOfBirth: string;
   pin: number;
   state: string;
   city: string;

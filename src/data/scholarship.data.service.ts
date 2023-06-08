@@ -22,7 +22,7 @@ export class ScholarshipDataService {
       $or: [
         { state: user.state },
         { level_of_study: user.level_of_study },
-        { fieldOfStudy: user.field_of_study },
+        { feild_of_study: user.field_of_study },
         { gender: user.gender === 'Female' ? user.gender : 'all' },
       ],
     };
