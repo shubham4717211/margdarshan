@@ -27,16 +27,16 @@ export class CreateUserDto {
   // dateOfBirth: string;
 
 
-  @IsNumber()
-  pin: number;
+  // @IsNumber()
+  // pin: number;
 
 
   @IsString()
   state: string;
 
 
-  @IsString()
-  city: string;
+  // @IsString()
+  // city: string;
 
   // @IsNotEmpty()
   // @IsString()

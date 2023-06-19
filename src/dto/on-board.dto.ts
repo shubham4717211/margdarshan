@@ -9,17 +9,17 @@ export class OnBoardDto {
   @IsDateString()
   dateOfBirth: string;
 
-  @IsOptional()
-  @IsNumber()
-  pin: number;
+  // @IsOptional()
+  // @IsNumber()
+  // pin: number;
 
   @IsOptional()
   @IsString()
   state: string;
 
-  @IsOptional()
-  @IsString()
-  city: string;
+  // @IsOptional()
+  // @IsString()
+  // city: string;
 
   // @IsNotEmpty()
   // @IsString()
