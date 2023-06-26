@@ -1,13 +1,17 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { CreateUserDto } from 'src/dto/user.dto';
 import { CookieOptions, Response  } from 'express';
 import { UserDataService } from 'src/data/user.data.service';
+import { MailService } from './mail.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userDataService: UserDataService) {}
+  constructor(
+    private readonly userDataService: UserDataService,
+    private readonly mailService: MailService,
+    ) {}
 
   async signup(signupDto: CreateUserDto, ): Promise<{ access_token: string, payload: { userId: string, email: string } }> {
     
@@ -50,6 +54,26 @@ export class AuthService {
       access_token: access_token,
       payload,
     };
+  }
+
+  async sendForgotPasswordEmail(email: string): Promise<void> {
+    const user = await this.userDataService.getUserByEmail(email);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const token = this.generateToken({ userId: user._id.toString(), email }, '1h');
+    await this.mailService.sendForgotPasswordEmail(email, token);
+  }
+
+  async resetPassword(userId: string ,newPassword: string): Promise<void> {
+    const user = await this.userDataService.getUserById(userId);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.userDataService.updateUserPassword(userId, hashedPassword);
   }
 
   generateToken(payload: any, expiresIn: string): string {

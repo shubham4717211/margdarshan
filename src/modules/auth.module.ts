@@ -8,6 +8,7 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { UserSchema } from 'src/schemas/user.schema';
 import { UserDataService } from 'src/data/user.data.service';
 import { RouterModule } from '@nestjs/core';
+import { MailService } from 'src/services/mail.service';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { RouterModule } from '@nestjs/core';
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtAuthGuard, UserDataService],  
+  providers: [AuthService, JwtAuthGuard, UserDataService, MailService],  
 })
 export class AuthModule {}

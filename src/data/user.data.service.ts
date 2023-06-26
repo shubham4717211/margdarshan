@@ -29,4 +29,8 @@ export class UserDataService {
     }
     return user
   }
+  
+  async updateUserPassword(userId: string, newPassword: string): Promise<User | null> {
+    return this.userModel.findByIdAndUpdate(userId, { password: newPassword }, { new: true }).exec();
+  }
 }
